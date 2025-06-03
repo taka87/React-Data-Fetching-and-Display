@@ -38,8 +38,9 @@ function UserList() {
   const usersPerPage = 3; // 👈 показваме по 3 потребителя на страница  
 
   useEffect(() => {
+    setCurrentPage(1);
     // ✅ Fetches data on component mount only once
-    //fetch('https://jsonplaceholder.typicode.com/404-users') // test for Error is it works ?
+    //fetch('https://jsonplaceholder.typicode.com/404-users') // test for Error Handling with Broken link
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(res => {
         if (!res.ok) {
@@ -51,13 +52,13 @@ function UserList() {
         setTimeout(() => {
           setUsers(data);
           setIsLoading(false);
-        }, 1000); // 1.0 секунди изкуствено забавяне
+        }, 1500); // 1.5 секунди изкуствено забавяне
       })      
       .catch(err => {
         setError(err.message);
         setIsLoading(false);
       });
-  }, []);
+  }, [searchTerm]);
 
   // ✅ Displays loading component while fetching data
   if (isLoading) return <Loading />;
@@ -91,81 +92,81 @@ const indexOfFirstUser = indexOfLastUser - usersPerPage;
 const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
 const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
   return (
-    <div>
-      <h2>Users:</h2>
+  <div className="container">
+    <h2>Users:</h2>
 
       {/* ✅ Input field for searching users by name */}
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: '12px', padding: '6px', width: '50%' }}
-      />
+    <input
+      type="text"
+      placeholder="Search by name..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className="input-search"
+    />
 
       {/* ✅ Sorting controls: sort by ID or Name, toggle order */}
-      <div style={{ marginBottom: '12px' }}>
-        <button onClick={() => setSortField('id')}>
-          Sort by ID {sortField === 'id' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-        </button>
-        <button onClick={() => setSortField('name')} style={{ marginLeft: '10px' }}>
-          Sort by Name {sortField === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-        </button>
-        <button
-          onClick={() =>
-            setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))
-          }
-          style={{ marginLeft: '10px' }}
-        >
-          Toggle Order
-        </button>
-      </div>
+    <div className="buttons-group">
+      <button
+        onClick={() => setSortField('id')}
+        className={sortField === 'id' ? 'active' : ''}
+      >
+        Sort by ID {sortField === 'id' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+      </button>
+      <button
+        onClick={() => setSortField('name')}
+        className={sortField === 'name' ? 'active' : ''}
+      >
+        Sort by Name {sortField === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+      </button>
+      <button onClick={() => setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))}>
+        Toggle Order
+      </button>
+    </div>
 
-      {/* ✅ Table structure for displaying user data */}
-      <table style={{ borderCollapse: 'collapse', width: '100%' }}>
-        <thead>
-          <tr>
-            <th style={{ border: '1px solid #ccc', padding: '8px' }}>ID</th>
-            <th style={{ border: '1px solid #ccc', padding: '8px' }}>Name</th>
-            <th style={{ border: '1px solid #ccc', padding: '8px' }}>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentUsers.map(user => (
-            // ✅ Reusable component for rendering a user row
-            <UserCard key={user.id} user={user} />
-          ))}
-        </tbody>
+    {/* ✅ Table structure for displaying user data */}
+    <table>
+      <thead>
+        <tr>
+          <th className="id-column">ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {currentUsers.map(user => (
+          <UserCard key={user.id} user={user} />
+        ))}
+      </tbody>
+    </table>
 
 
         {/* ✅ Pagination controls: Previous, numbered pages, Next */}
-        <div className="pagination-controls">
-          <button
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            ← Previous
-          </button>
+    <div className="pagination-controls">
+      <button
+        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+        disabled={currentPage === 1}
+      >
+        ← Previous
+      </button>
 
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              className={currentPage === index + 1 ? 'active' : ''}
-            >
-              {index + 1}
-            </button>
-          ))}
+      {Array.from({ length: totalPages }, (_, index) => (
+        <button
+          key={index}
+          onClick={() => setCurrentPage(index + 1)}
+          className={currentPage === index + 1 ? 'active' : ''}
+        >
+          {index + 1}
+        </button>
+      ))}
 
-          <button
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            Next →
-          </button>
-        </div>
-      </table>
+      <button
+        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+        disabled={currentPage === totalPages}
+      >
+        Next →
+      </button>
     </div>
+  </div>
     
   );
 }

@@ -47,18 +47,18 @@ export default function UserDetails() {
 
   // Render user details once the data has been successfully fetched
   return (
-    <div>
-      <h1>{user.name}</h1>
-      <p><strong>Username:</strong> {user.username}</p>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Phone:</strong> {user.phone}</p>
-      <p><strong>Website:</strong> {user.website}</p>
-      <p><strong>Address:</strong> {user.address.street}, {user.address.city}</p>
-      <p><strong>Company:</strong> {user.company.name}</p>
-    
-        {/* Go Back to Main page */}
+    <div className="user-card">
+        <h1>{user.name}</h1>
+        <div className="user-info">
+            <p><strong>Username:</strong> {user.username}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Phone:</strong> {user.phone}</p>
+            <p><strong>Website:</strong> {user.website}</p>
+            <p><strong>Address:</strong> {user.address.street}, {user.address.city}</p>
+            <p><strong>Company:</strong> {user.company.name}</p>
+        </div>
         <p>
-            <Link to="/">← Back to User List</Link>
+            <Link to="/" className="back-button">← Back to User List</Link>
         </p>
     </div>
   );

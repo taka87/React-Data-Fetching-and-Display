@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <div>
-        <h1>Hello, React + TypeScript!</h1>
+        <h1>React Data Fetching and Display </h1>
         <Routes>
           <Route path="/" element={<UserList />} />
           <Route path="/users/:id" element={<UserDetails />} />
