@@ -40,7 +40,7 @@ function UserList() {
   useEffect(() => {
     setCurrentPage(1);
     // ✅ Fetches data on component mount only once
-    //fetch('https://jsonplaceholder.typicode.com/404-users') // test for Error Handling with Broken link
+    // fetch('https://jsonplaceholder.typicode.com/404-users') // test for Error Handling with Broken link
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(res => {
         if (!res.ok) {
@@ -55,10 +55,14 @@ function UserList() {
         }, 1500); // 1.5 секунди изкуствено забавяне
       })      
       .catch(err => {
-        setError(err.message);
+        if (err.message && err.message.includes('Failed to fetch')) {
+          setError('Network error, please check your connection.');
+        } else {
+          setError('Error loading users.');
+        }
         setIsLoading(false);
       });
-  }, [searchTerm]);
+    }, [searchTerm]);
 
   // ✅ Displays loading component while fetching data
   if (isLoading) return <Loading />;
