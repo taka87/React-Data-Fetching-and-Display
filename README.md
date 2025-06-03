@@ -5,7 +5,7 @@ This is a simple React + TypeScript app that fetches a list of users from the [J
 ## Features
 
 - Fetches users from a public API
-- Displays user list in a table
+- Displays user list in a table with pagination (10 records total, displayed as 3 per page, with Prev/Next buttons; the last page shows the remaining 1 record)
 - Each user links to a detailed view page
 - Loading and error message components
 - Built with functional components and React hooks
