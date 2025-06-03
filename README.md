@@ -1,6 +1,6 @@
 # User List App – React + TypeScript
 
-This is a simple React + TypeScript app that fetches a list of users from the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/users) and displays them. The app includes loading and error states, basic routing, and pagination. Project includes maximum ammount of comments that navigate user to the understanding of implemented functionalities.
+This is a simple React + TypeScript app that fetches a list of users from the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/users) and displays them. The app includes loading and error states, basic routing, and pagination. 
 
 ## Features
 
