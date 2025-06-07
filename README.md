@@ -12,6 +12,12 @@ This is a simple React + TypeScript app that fetches a list of users from the [J
 - Written entirely in TypeScript
 - The project includes extensive inline comments to help readers understand the implemented functionalities step by step.
 
+🛠 Tech Stack
+- React – UI Library
+- TypeScript – Type-safe JavaScript
+- React Router DOM – Client-side routing
+- Fetch API – Data fetching
+
 ## 🚀 Getting Started
 
 Follow these steps to run the project locally:
@@ -44,8 +50,3 @@ http://localhost:3000
 
 ```
 
-🧰 Tech Stack
-- React – UI Library
-- TypeScript – Type-safe JavaScript
-- React Router DOM – Client-side routing
-- Fetch API – Data fetching
