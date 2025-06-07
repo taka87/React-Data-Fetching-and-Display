@@ -49,4 +49,3 @@ http://localhost:3000
     output to confirm the correct localhost URL.
 
 ```
-

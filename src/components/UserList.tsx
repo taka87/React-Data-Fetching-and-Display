@@ -38,31 +38,31 @@ function UserList() {
   const usersPerPage = 3;  
 
   useEffect(() => {
-    setCurrentPage(1);
-    // ✅ Fetches data on component mount only once
-    // fetch('https://jsonplaceholder.typicode.com/404-users') // test for Error Handling with Broken link
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Network error');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setTimeout(() => {
-          setUsers(data);
-          setIsLoading(false);
-        }, 1500); // manually added 1.5 seconds delay
-      })      
-      .catch(err => {
-        if (err.message && err.message.includes('Failed to fetch')) {
-          setError('Network error, please check your connection.');
-        } else {
-          setError('Error loading users.');
-        }
+  setCurrentPage(1);
+  // ✅ Fetches data on component mount only once
+  // fetch('https://jsonplaceholder.typicode.com/404-users') // test for Error Handling with Broken link
+  fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Network error');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      setTimeout(() => {
+        setUsers(data);
         setIsLoading(false);
-      });
-    }, [searchTerm]);
+      }, 1500); // manually added 1.5 seconds delay
+    })      
+    .catch(err => {
+      if (err.message && err.message.includes('Failed to fetch')) {
+        setError('Network error, please check your connection.');
+      } else {
+        setError('Error loading users.');
+      }
+      setIsLoading(false);
+    });
+  }, [searchTerm]);
 
   // ✅ Displays loading component while fetching data
   if (isLoading) return <Loading />;
@@ -71,23 +71,24 @@ function UserList() {
 
   //userFilter logyc
   const filteredUsers = users
-    .filter(user =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    // ✅ Sorts filtered users based on selected field and order
-    .sort((a, b) => {
-      const fieldA = a[sortField];
-      const fieldB = b[sortField];
-      if (typeof fieldA === 'number' && typeof fieldB === 'number') {
-        return sortOrder === 'asc' ? fieldA - fieldB : fieldB - fieldA;
-      }
-      if (typeof fieldA === 'string' && typeof fieldB === 'string') {
-        return sortOrder === 'asc'
-          ? fieldA.localeCompare(fieldB)
-          : fieldB.localeCompare(fieldA);
-      }
-      return 0;
-    });
+  .filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  // ✅ Sorts filtered users based on selected field and order
+  .sort((a, b) => {
+    const fieldA = a[sortField];
+    const fieldB = b[sortField];
+    if (typeof fieldA === 'number' && typeof fieldB === 'number') {
+      return sortOrder === 'asc' ? fieldA - fieldB : fieldB - fieldA;
+    }
+    if (typeof fieldA === 'string' && typeof fieldB === 'string') {
+      return sortOrder === 'asc'
+        ? fieldA.localeCompare(fieldB)
+        : fieldB.localeCompare(fieldA);
+    }
+    return 0;
+  });
 
   // ✅ Pagination: calculates visible users based on current page
   const indexOfLastUser = currentPage * usersPerPage;
@@ -95,83 +96,85 @@ function UserList() {
 
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
-  
+    
   return (
-  <div className="container">
-    <h2>Users:</h2>
+    <div className="container">
+      <h2>Users:</h2>
 
       {/* ✅ Input field for searching users by name */}
-    <input
-      type="text"
-      placeholder="Search by name..."
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-      className="input-search"
-    />
+      <input
+        type="text"
+        placeholder="Search by name..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="input-search"
+      />
 
       {/* ✅ Sorting controls: sort by ID or Name, toggle order */}
-    <div className="buttons-group">
-      <button
-        onClick={() => setSortField('id')}
-        className={sortField === 'id' ? 'active' : ''}
-      >
-        Sort by ID {sortField === 'id' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-      </button>
-      <button
-        onClick={() => setSortField('name')}
-        className={sortField === 'name' ? 'active' : ''}
-      >
-        Sort by Name {sortField === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-      </button>
-      <button onClick={() => setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))}>
-        Toggle Order
-      </button>
-    </div>
-
-    {/* ✅ Table structure for displaying user data */}
-    <table>
-      <thead>
-        <tr>
-          <th className="id-column">ID</th>
-          <th>Name</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        {currentUsers.map(user => (
-          <UserCard key={user.id} user={user} />
-        ))}
-      </tbody>
-    </table>
-
-
-        {/* ✅ Pagination controls: Previous, numbered pages, Next */}
-    <div className="pagination-controls">
-      <button
-        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-        disabled={currentPage === 1}
-      >
-        ← Previous
-      </button>
-
-      {Array.from({ length: totalPages }, (_, index) => (
+      <div className="buttons-group">
         <button
-          key={index}
-          onClick={() => setCurrentPage(index + 1)}
-          className={currentPage === index + 1 ? 'active' : ''}
+          onClick={() => setSortField('id')}
+          className={sortField === 'id' ? 'active' : ''}
         >
-          {index + 1}
+          Sort by ID {sortField === 'id' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
         </button>
-      ))}
 
-      <button
-        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-        disabled={currentPage === totalPages}
-      >
-        Next →
-      </button>
+        <button
+          onClick={() => setSortField('name')}
+          className={sortField === 'name' ? 'active' : ''}
+        >
+          Sort by Name {sortField === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+        </button>
+        
+        <button onClick={() => setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))}>
+          Toggle Order
+        </button>
+      </div>
+
+      {/* ✅ Table structure for displaying user data */}
+      <table>
+        <thead>
+          <tr>
+            <th className="id-column">ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentUsers.map(user => (
+            <UserCard key={user.id} user={user} />
+          ))}
+        </tbody>
+      </table>
+
+
+      {/* ✅ Pagination controls: Previous, numbered pages, Next */}
+      <div className="pagination-controls">
+        <button
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          ← Previous
+        </button>
+
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentPage(index + 1)}
+            className={currentPage === index + 1 ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next →
+        </button>
+      </div>
     </div>
-  </div>
     
   );
 }
