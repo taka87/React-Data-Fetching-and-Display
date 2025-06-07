@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { Link } from 'react-router-dom';
+import { Loading } from './Loading';
 
 // Define the shape of a User object for type safety
 interface User {
@@ -43,7 +44,7 @@ export default function UserDetails() {
       .then((data) => setUser(data)); // Update the `user` state with the fetched data
   }, [id]); // Dependency array: re-run this effect when `id` changes
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <Loading />;
 
   // Render user details once the data has been successfully fetched
   return (

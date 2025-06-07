@@ -107,12 +107,14 @@ table {
   width: 100%;
 }
 
-/* th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-  vertical-align: middle;
-} */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; 
+  font-weight: bold;
+  color: #555;
+}
 
 th.id-column {
   width: 60px; /* по-тесен за ID */

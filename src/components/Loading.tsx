@@ -6,8 +6,8 @@ export const Loading: React.FC = () => {
   return (
     // A simple div that shows the "Loading..." message
     // It has some inline styles for spacing and center alignment    
-    <div style={{ padding: '1rem', textAlign: 'center' }}>
-      Loading... - manually added delay :)
+    <div className="loading-container">
+      Loading... Manually added delay 😊
     </div>
   );
 };
