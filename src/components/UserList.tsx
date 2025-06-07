@@ -27,15 +27,15 @@ function UserList() {
   const [error, setError] = useState<string | null>(null);
 
   // ✅ Stores the search input from user for filtering by name
-  const [searchTerm, setSearchTerm] = useState<string>(''); // 👈 добавяме стейт за търсене
+  const [searchTerm, setSearchTerm] = useState<string>(''); 
 
   // ✅ Sorting logic: allows sorting by 'id' or 'name' in ascending or descending order
-  const [sortField, setSortField] = useState<'id' | 'name'>('id'); // 👈 поле за сортиране
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); // 👈 посока на сортиране
+  const [sortField, setSortField] = useState<'id' | 'name'>('id'); 
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); 
 
   // ✅ Pagination: current page & number of users per page
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const usersPerPage = 3; // 👈 показваме по 3 потребителя на страница  
+  const usersPerPage = 3;  
 
   useEffect(() => {
     setCurrentPage(1);
@@ -52,7 +52,7 @@ function UserList() {
         setTimeout(() => {
           setUsers(data);
           setIsLoading(false);
-        }, 1500); // 1.5 секунди изкуствено забавяне
+        }, 1500); // manually added 1.5 seconds delay
       })      
       .catch(err => {
         if (err.message && err.message.includes('Failed to fetch')) {
