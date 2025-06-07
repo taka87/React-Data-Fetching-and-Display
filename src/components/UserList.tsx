@@ -89,12 +89,13 @@ function UserList() {
       return 0;
     });
 
-// ✅ Pagination: calculates visible users based on current page
-const indexOfLastUser = currentPage * usersPerPage;
-const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  // ✅ Pagination: calculates visible users based on current page
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
 
-const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+  
   return (
   <div className="container">
     <h2>Users:</h2>
