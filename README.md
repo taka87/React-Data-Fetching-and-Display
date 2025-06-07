@@ -17,6 +17,7 @@ This is a simple React + TypeScript app that fetches a list of users from the [J
 Follow these steps to run the project locally:
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/taka87/React-Data-Fetching-and-Display.git
 cd React-Data-Fetching-and-Display
@@ -24,7 +25,10 @@ cd React-Data-Fetching-and-Display
 npm install
 npm start
 
+```
+
 2. To create an optimized production build:
+
 ```bash
 npm run build
 
@@ -35,6 +39,7 @@ serve -s build
 Then open your browser at:
 http://localhost:3000
 
+```
 
 🧰 Tech Stack
 -React – UI Library
