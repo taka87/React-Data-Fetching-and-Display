@@ -20,7 +20,8 @@ Follow these steps to run the project locally:
 
 ```bash
 git clone https://github.com/taka87/React-Data-Fetching-and-Display.git
-cd React-Data-Fetching-and-Display
+cd React-Data-Fetching-and-Display # or the folder name you chose when cloning
+    Note: If you renamed the folder while cloning, replace the path accordingly.
 
 npm install
 npm start
@@ -38,6 +39,8 @@ serve -s build
 
 Then open your browser at:
 http://localhost:3000
+    Note: The local development server address may vary. Please check your terminal 
+    output to confirm the correct localhost URL.
 
 ```
 
