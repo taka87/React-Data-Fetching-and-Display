@@ -45,7 +45,7 @@ http://localhost:3000
 ```
 
 🧰 Tech Stack
--React – UI Library
--TypeScript – Type-safe JavaScript
--React Router DOM – Client-side routing
--Fetch API – Data fetching
+- React – UI Library
+- TypeScript – Type-safe JavaScript
+- React Router DOM – Client-side routing
+- Fetch API – Data fetching
