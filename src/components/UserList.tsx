@@ -125,7 +125,7 @@ function UserList() {
         >
           Sort by Name {sortField === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
         </button>
-        
+
         <button onClick={() => setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))}>
           Toggle Order
         </button>
@@ -174,8 +174,7 @@ function UserList() {
           Next →
         </button>
       </div>
-    </div>
-    
+    </div>    
   );
 }
 

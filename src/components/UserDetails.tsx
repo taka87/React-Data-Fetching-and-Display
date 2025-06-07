@@ -62,6 +62,4 @@ export default function UserDetails() {
         </p>
     </div>
   );
-
-
 }
